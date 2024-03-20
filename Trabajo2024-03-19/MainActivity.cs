@@ -37,7 +37,7 @@ namespace Trabajo2024_03_19
             clsDatos datos = new clsDatos();
             View celda = e.View;
             ImageView imgPais = celda.FindViewById<ImageView>(Resource.Id.imgTabPais);
-            int id = Convert.ToInt32(ds.Tables[0].Rows[e.Position]["id"]);
+            int id = Convert.ToInt32(e.Position);
             string pais = (ds.Tables[0].Rows[e.Position]["pais"]).ToString();
             string bmp1 =ds.Tables[0].Rows[e.Position]["bandera"].ToString();
             Intent sp = new Intent(this, typeof(AcCiudades));

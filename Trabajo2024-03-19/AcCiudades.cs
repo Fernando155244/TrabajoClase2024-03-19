@@ -28,7 +28,8 @@ namespace Trabajo2024_03_19
             // Create your application here
             SetContentView(Resource.Layout.Ciudades);
             clsDatos datos = new clsDatos();
-            ds = datos.cargarCiudades(Convert.ToInt32(this.Intent.GetStringExtra("id")));
+            int id = this.Intent.GetIntExtra("id",0)+1;
+            ds = datos.cargarCiudades(id);
 
             ImageView imgBandera = this.FindViewById<ImageView>(Resource.Id.imgPais);
             ListView lsCiudades = this.FindViewById<ListView>(Resource.Id.lsCiudades);
