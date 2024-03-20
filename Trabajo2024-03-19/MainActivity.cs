@@ -37,11 +37,13 @@ namespace Trabajo2024_03_19
             clsDatos datos = new clsDatos();
             View celda = e.View;
             ImageView imgPais = celda.FindViewById<ImageView>(Resource.Id.imgTabPais);
+            int id = Convert.ToInt32(ds.Tables[0].Rows[e.Position]["id"]);
             string pais = (ds.Tables[0].Rows[e.Position]["pais"]).ToString();
             string bmp1 =ds.Tables[0].Rows[e.Position]["bandera"].ToString();
             Intent sp = new Intent(this, typeof(AcCiudades));
             sp.PutExtra("pais", pais);
             sp.PutExtra("bandera", bmp1);
+            sp.PutExtra("id", id);
             StartActivity(sp);
         }
 
@@ -92,7 +94,7 @@ namespace Trabajo2024_03_19
             }
             ImageView imgPais = celda.FindViewById<ImageView>(Resource.Id.imgTabPais);
             TextView lblPais = celda.FindViewById<TextView>(Resource.Id.lblTabPais);
-            Android.Graphics.Bitmap bmp1 = datos.descarga(ds.Tables[0].Rows[position]["bandera"].ToString());
+            Android.Graphics.Bitmap bmp1 = datos.descarga2(ds.Tables[0].Rows[position]["bandera"].ToString());
             lblPais.Text = ds.Tables[0].Rows[position]["pais"].ToString();
             imgPais.SetImageBitmap(bmp1);
             return celda;

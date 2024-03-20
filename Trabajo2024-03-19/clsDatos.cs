@@ -35,5 +35,20 @@ namespace Trabajo2024_03_19
             Bitmap bmp = BitmapFactory.DecodeByteArray(arr, 0, arr.Length);
             return bmp;
         }
+
+        public DataSet cargarCiudades(int id)
+        {
+            WebReference.Service1 ws = new WebReference.Service1();
+            DataSet ds = new DataSet();
+            ds = ws.CargaCiudades(id);
+            return ds;
+        }
+        public Bitmap descarga2(string url)
+        {
+            WebClient wc = new WebClient();
+            byte[] arr = wc.DownloadData(url);
+            Bitmap bmp = BitmapFactory.DecodeByteArray(arr, 0, arr.Length);
+            return bmp;
+        }
     }
 }

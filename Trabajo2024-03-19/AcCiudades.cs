@@ -28,8 +28,13 @@ namespace Trabajo2024_03_19
             // Create your application here
             SetContentView(Resource.Layout.Ciudades);
             clsDatos datos = new clsDatos();
+            ds = datos.cargarCiudades(Convert.ToInt32(this.Intent.GetStringExtra("id")));
 
             ImageView imgBandera = this.FindViewById<ImageView>(Resource.Id.imgPais);
+            ListView lsCiudades = this.FindViewById<ListView>(Resource.Id.lsCiudades);
+
+
+
             TextView lblPais = this.FindViewById<TextView>(Resource.Id.lblPais);
             //id = this.Intent.GetIntExtra("idc", 0);
             lblPais.Text = this.Intent.GetStringExtra("pais").ToString();
@@ -39,7 +44,57 @@ namespace Trabajo2024_03_19
             Android.Graphics.Bitmap bmt1 = BitmapFactory.DecodeStream(stream);
             imgBandera.SetImageBitmap(bmt1);*/
 
+            lsCiudades.Adapter = new Adap(this,ds);
 
+
+
+        }
+    }
+
+    internal class Adap : BaseAdapter
+    {
+        private AcCiudades acCiudades;
+        private DataSet ds;
+
+        public Adap(AcCiudades acCiudades, DataSet ds)
+        {
+            this.acCiudades = acCiudades;
+            this.ds = ds;
+        }
+
+        public override int Count
+        {
+            get
+            {
+                return ds.Tables[0].Rows.Count;
+            }
+        }
+
+        public override Java.Lang.Object GetItem(int position)
+        {
+            return "";
+        }
+
+        public override long GetItemId(int position)
+        {
+            return position;
+        }
+
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            clsDatos datos = new clsDatos();
+            View celda = convertView;
+            if (celda == null)
+            {
+                celda = acCiudades.LayoutInflater.Inflate(Resource.Layout.tabPaises, null);
+            }
+            ImageView imgciudad  = celda.FindViewById<ImageView>(Resource.Id.imgTabPais);
+            TextView lblCiudad = celda.FindViewById<TextView>(Resource.Id.lblTabPais);
+            Android.Graphics.Bitmap bmp1 = datos.descarga(ds.Tables[0].Rows[position]["foto"].ToString());
+            lblCiudad.Text = ds.Tables[0].Rows[position]["capital"].ToString();
+            imgciudad.SetImageBitmap(bmp1);
+            return celda;
         }
     }
 }
